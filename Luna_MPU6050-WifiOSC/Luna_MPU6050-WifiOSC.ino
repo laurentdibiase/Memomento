@@ -1,6 +1,5 @@
-//Permet de connecter une carte Type MK1010 à un réseau Wifi Local et d'envoyer les  
-//valeurs de données du capteur de distance TF-LUNA et de l'accéléromètre MPU6050 via OSC
-//FONCTIONNE!
+//Arduino MK1010 Wifi connection
+//Send TF-LUNA and MPU6050 sensors values to OSC
 
 
 #include <SPI.h>
