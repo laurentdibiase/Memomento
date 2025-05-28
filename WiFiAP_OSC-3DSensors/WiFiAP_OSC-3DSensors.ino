@@ -1,17 +1,24 @@
-//Utilise une carte type MKR1010 pour créer un réseau wifi local ( Point d'accès), 
-//et envoyer les valeurs de données des capteurs capaticitifs 3D via OSC UDP.
-//Réseau wifi de Cristina pour récupérer les données de l'aquarium
-//Fonctionne !
 /*
-  WiFi Access Point for OSC Communication
+  Arduino MKR1010 Access point
+  Send 3D capacitive sensor values to OSC UDP
+
+  A simple web server that lets you send OSC messages over a closed network.
+  This sketch will create a new access point with password.
+  It will then launch a new server, print out the IP address
+  to the Serial monitor, and then send an OSC message over UDP to a specific IP address. 
+  
+
+  based on 
+  WiFi Access Point for OSC Communication by Federico Peliti
+  WiFi Simple Web Server by Tom Igoe
+  WiFi UDP Send and Receive String by dlf
+  UDP Send Message by Adrian Freed
 
   A simple web server that lets you send OSC messages over a closed network.
   This sketch will create a new access point with password.
   It will then launch a new server, print out the IP address
   to the Serial monitor, and then send an OSC message over UDP to a specific IP address. 
 
-  created 24 Nov 2018
-  by Federico Peliti
 
   based on 
   WiFi Simple Web Server by Tom Igoe
