@@ -1,7 +1,5 @@
-//Permet de connecter une carte Type MK1010 à un réseau Wifi Local et d'envoyer 
-//les valeurs de données de 2 capteurs de distance SHARP IR via OSC
-//Se connecte au réseau de Cristina
-//FONCTIONNE!
+//MK1010 local Wifi connect
+//Send 2 sensors SHARP IR values to OSC
 
 
 #include <SPI.h>
@@ -11,10 +9,10 @@
 #include <SharpDistSensor.h>
 
 
-//char ssid[] = "Studio_Msh";       //  your network SSID (name) between the " "
-//char pass[] = "STUDIO@CICM";      // your network password between the " "
-char ssid[] = "CristinaNet";       //  your network SSID (name) between the " "
-char pass[] = "CristinaPass";      // your network password between the " "
+//char ssid[] = "";       //  your network SSID (name) between the " "
+//char pass[] = "";      // your network password between the " "
+char ssid[] = "";       //  your network SSID (name) between the " "
+char pass[] = "";      // your network password between the " "
 int keyIndex = 0;                 // your network key Index number (needed only for WEP)
 int status = WL_IDLE_STATUS;      //connection status
 
@@ -22,7 +20,7 @@ int status = WL_IDLE_STATUS;      //connection status
 //IPAddress arduIp(128, 32, 122, 252);
 
 //destination IP !!!
-IPAddress outIp(192, 168, 4, 2);//IP Cristina
+IPAddress outIp(192, 168, 4, 2);//IP adress
 
 
 //ports to listen for and send OSC messages
