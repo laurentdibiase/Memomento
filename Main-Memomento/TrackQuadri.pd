@@ -1,0 +1,1143 @@
+#N canvas 219 33 1008 845 12;
+#X declare -lib faustgen2~;
+#X declare -lib ceammc;
+#X declare -lib faustgen2~;
+#X declare -lib ceammc;
+#N canvas 282 39 829 839 (subpatch) 0;
+#X obj 9 449 ui.polar @size 79 79 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.polar.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @clockwise 0 @radians 1 @positive 0 @direction
+"E";
+#X obj 39 34 ui.knob @size 28 28 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.0" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Gain" @label_inner
+0 @label_side "bottom" @label_align "left" @label_valign "top" @label_margins
+0 0 @min -45 @max 15 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 1 @active_scale 1;
+#X obj 18 19 ui.meter~ @size 10 100 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "Input" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins -6 0 @interval 25;
+#X obj 42 103 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 14 412 ui.toggle @size 19 19 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Mute" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 83 92 ui.knob @size 24 24 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.1" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "HP" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 1 @max 400 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 12 346 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.2" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "80Hz" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 83 45 ui.knob @size 25 25 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.3" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "LP" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 2000 @max 20000 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 52 340 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.4" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Lv." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 12 298 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.5" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "12KHz" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 65 299 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.6" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Mid." @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 200 @max 5000 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 83 340 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.7" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Q" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0 @max 100 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 229 -83 inlet~;
+#X msg 351 -44 compile;
+#X obj 58 194 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.8" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Att." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0.0001 @max 1 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 14 238 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.9" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Gain" @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min -30 @max 30 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 1 @active_scale 1;
+#X obj 15 197 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.10" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Thrd." @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 0 @max -70 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 15 154 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.11" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Ratio" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 1 @max 70 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 57 235 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.12" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Rel." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0.001 @max 1 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 96 185 ui.meter~ @size 10 80 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "Out" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins -6 0 @interval 25;
+#X obj 351 -69 loadbang;
+#X floatatom 445 74 8 0 0 0 - - -;
+#X obj 427 125 *~;
+#X obj 445 24 nbx 5 17 -80 10 0 0 empty empty empty 0 -8 0 13 -228856
+-1 -1 -15 256;
+#X text 515 26 dB;
+#X obj 445 47 db2lin;
+#X text 459 127 gain adjustment;
+#X obj 445 98 f2s~ 10 1;
+#X obj 65 -63 loadbang;
+#X obj 332 250 dsp/compressor;
+#X obj 427 175 lop~;
+#X obj 427 223 hip~;
+#X msg 117 -34 20000;
+#X msg 26 -37 20;
+#X msg 162 343 Q \$1;
+#X msg 207 343 freq \$1;
+#X obj 9 540 hoa.scope~ @size 51 51 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj 96 424 ui.gain~ @size 15 160 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Gain" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj -85 395 msg.onload;
+#X obj 62 425 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 174 512 env~ 128;
+#X obj 124 98 env~ 128;
+#X obj 360 339 dsp/peakeq;
+#X msg 162 296 levelh \$1;
+#X msg 162 321 levelm \$1;
+#X msg 164 366 levell \$1;
+#X msg 476 201 \$1 5;
+#X msg 476 154 \$1 5;
+#X obj 442 202 line;
+#X obj 442 153 line;
+#X msg 278 178 active \$1;
+#X msg 279 199 defaults;
+#X msg 252 294 active \$1;
+#X msg 254 314 defaults;
+#X obj 100 285 ui.toggle @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.1" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 9 @label "IO" @label_inner 0 @label_side "top" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 100 153 ui.toggle @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.2" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 9 @label "IO" @label_inner 0 @label_side "top" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 100 304 ui.bang @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X obj 80 153 ui.bang @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "Rst" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X msg 66 -38 -45;
+#X obj 484 344 route ratio threshold ampdb attack release;
+#X msg 142 127 ratio \$1 \, ratio;
+#X msg 144 152 threshold \$1 \, threshold;
+#X msg 143 183 ampdb \$1 \, ampdb;
+#X msg 143 217 attack \$1 \, attack;
+#X msg 144 245 release \$1 \, release;
+#X obj -48 719 hoa.2d.map~ 1 4, f 23;
+#X obj 8 623 msg polar 0;
+#X obj -61 803 throw~ \$0-QD1;
+#X obj 52 807 throw~ \$0-QD3;
+#X obj 12 831 throw~ \$0-QD2;
+#X obj 126 643 msg mute;
+#X msg 126 615 0 \$1;
+#X connect 0 0 66 0;
+#X connect 1 0 23 0;
+#X connect 4 0 71 0;
+#X connect 5 0 46 0;
+#X connect 6 0 45 0;
+#X connect 7 0 47 0;
+#X connect 8 0 44 0;
+#X connect 9 0 43 0;
+#X connect 10 0 35 0;
+#X connect 11 0 34 0;
+#X connect 12 0 22 0;
+#X connect 13 0 29 0;
+#X connect 13 0 42 0;
+#X connect 14 0 63 0;
+#X connect 15 0 62 0;
+#X connect 16 0 61 0;
+#X connect 17 0 60 0;
+#X connect 18 0 64 0;
+#X connect 20 0 13 0;
+#X connect 21 0 27 0;
+#X connect 22 0 2 0;
+#X connect 22 0 30 0;
+#X connect 22 0 41 0;
+#X connect 23 0 25 0;
+#X connect 25 0 21 0;
+#X connect 27 0 22 1;
+#X connect 28 0 58 0;
+#X connect 28 0 32 0;
+#X connect 28 0 33 0;
+#X connect 29 1 19 0;
+#X connect 29 1 42 1;
+#X connect 30 0 31 0;
+#X connect 31 0 29 1;
+#X connect 32 0 7 0;
+#X connect 33 0 5 0;
+#X connect 34 0 42 0;
+#X connect 35 0 42 0;
+#X connect 37 0 40 0;
+#X connect 37 0 65 0;
+#X connect 38 0 0 0;
+#X connect 40 0 39 0;
+#X connect 41 0 3 0;
+#X connect 42 1 37 0;
+#X connect 43 0 42 0;
+#X connect 44 0 42 0;
+#X connect 45 0 42 0;
+#X connect 46 0 48 0;
+#X connect 47 0 49 0;
+#X connect 48 0 31 1;
+#X connect 49 0 30 1;
+#X connect 50 0 29 0;
+#X connect 51 0 29 0;
+#X connect 52 0 42 0;
+#X connect 53 0 42 0;
+#X connect 54 0 52 0;
+#X connect 55 0 50 0;
+#X connect 56 0 53 0;
+#X connect 57 0 51 0;
+#X connect 58 0 1 0;
+#X connect 59 1 16 0;
+#X connect 59 2 15 0;
+#X connect 59 3 14 0;
+#X connect 59 4 18 0;
+#X connect 60 0 29 0;
+#X connect 61 0 29 0;
+#X connect 62 0 29 0;
+#X connect 63 0 29 0;
+#X connect 64 0 29 0;
+#X connect 65 0 36 0;
+#X connect 65 0 67 0;
+#X connect 65 1 36 1;
+#X connect 65 1 69 0;
+#X connect 65 2 36 2;
+#X connect 65 2 68 0;
+#X connect 66 0 65 0;
+#X connect 70 0 65 0;
+#X connect 71 0 70 0;
+#X coords 0 1 100 -1 120 600 1 0 0;
+#X restore 105 93 graph;
+#X obj 201 28 adc~;
+#N canvas 340 39 829 839 (subpatch) 0;
+#X obj 9 449 ui.polar @size 79 79 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.polar.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @clockwise 0 @radians 1 @positive 0 @direction
+"E";
+#X obj 39 34 ui.knob @size 28 28 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.0" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Gain" @label_inner
+0 @label_side "bottom" @label_align "left" @label_valign "top" @label_margins
+0 0 @min -45 @max 15 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 1 @active_scale 1;
+#X obj 18 19 ui.meter~ @size 10 100 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "Input" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins -6 0 @interval 25;
+#X obj 42 103 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 14 412 ui.toggle @size 19 19 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Mute" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 83 92 ui.knob @size 24 24 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.1" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "HP" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 1 @max 400 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 12 346 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.2" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "80Hz" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 83 45 ui.knob @size 25 25 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.3" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "LP" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 2000 @max 20000 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 52 340 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.4" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Lv." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 12 298 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.5" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "12KHz" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 65 299 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.6" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Mid." @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 200 @max 5000 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 83 340 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.7" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Q" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0 @max 100 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 229 -83 inlet~;
+#X obj 618 -55 declare -lib faustgen2~;
+#X obj 618 -79 declare -lib ceammc;
+#X msg 351 -44 compile;
+#X obj 58 194 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.8" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Att." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0.0001 @max 1 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 14 238 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.9" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Gain" @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min -30 @max 30 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 1 @active_scale 1;
+#X obj 15 197 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.10" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Thrd." @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 0 @max -70 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 15 154 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.11" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Ratio" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 1 @max 70 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 57 235 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.12" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Rel." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0.001 @max 1 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 96 185 ui.meter~ @size 10 80 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "Out" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins -6 0 @interval 25;
+#X obj 351 -69 loadbang;
+#X floatatom 445 74 8 0 0 0 - - -;
+#X obj 427 125 *~;
+#X obj 445 24 nbx 5 17 -80 10 0 0 empty empty empty 0 -8 0 13 -228856
+-1 -1 -8.57143 256;
+#X text 515 26 dB;
+#X obj 445 47 db2lin;
+#X text 459 127 gain adjustment;
+#X obj 445 98 f2s~ 10 1;
+#X obj 65 -63 loadbang;
+#X obj 332 250 dsp/compressor;
+#X obj 427 175 lop~;
+#X obj 427 223 hip~;
+#X msg 117 -34 20000;
+#X msg 26 -37 20;
+#X msg 162 343 Q \$1;
+#X msg 207 343 freq \$1;
+#X obj 9 540 hoa.scope~ @size 51 51 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj 96 424 ui.gain~ @size 15 160 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Gain" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj -85 395 msg.onload;
+#X obj 62 425 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 128 428 env~ 128;
+#X obj 124 98 env~ 128;
+#X obj 360 339 dsp/peakeq;
+#X msg 162 296 levelh \$1;
+#X msg 162 321 levelm \$1;
+#X msg 164 366 levell \$1;
+#X msg 476 201 \$1 5;
+#X msg 476 154 \$1 5;
+#X obj 442 202 line;
+#X obj 442 153 line;
+#X msg 278 178 active \$1;
+#X msg 279 199 defaults;
+#X msg 252 294 active \$1;
+#X msg 254 314 defaults;
+#X obj 100 285 ui.toggle @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.1" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 9 @label "IO" @label_inner 0 @label_side "top" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 100 153 ui.toggle @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.2" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 9 @label "IO" @label_inner 0 @label_side "top" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 100 304 ui.bang @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X obj 80 153 ui.bang @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "Rst" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X msg 66 -38 -45;
+#X obj 484 344 route ratio threshold ampdb attack release;
+#X msg 142 127 ratio \$1 \, ratio;
+#X msg 144 152 threshold \$1 \, threshold;
+#X msg 143 183 ampdb \$1 \, ampdb;
+#X msg 143 217 attack \$1 \, attack;
+#X msg 144 245 release \$1 \, release;
+#X obj -48 719 hoa.2d.map~ 1 4, f 23;
+#X obj 8 623 msg polar 1;
+#X obj -61 803 throw~ \$0-QD1\$0-;
+#X obj 52 807 throw~ \$0-QD3;
+#X obj 12 831 throw~ \$0-QD2;
+#X obj 203 674 msg mute;
+#X msg 203 646 1 \$1;
+#X connect 0 0 68 0;
+#X connect 1 0 25 0;
+#X connect 4 0 73 0;
+#X connect 5 0 48 0;
+#X connect 6 0 47 0;
+#X connect 7 0 49 0;
+#X connect 8 0 46 0;
+#X connect 9 0 45 0;
+#X connect 10 0 37 0;
+#X connect 11 0 36 0;
+#X connect 12 0 24 0;
+#X connect 15 0 31 0;
+#X connect 15 0 44 0;
+#X connect 16 0 65 0;
+#X connect 17 0 64 0;
+#X connect 18 0 63 0;
+#X connect 19 0 62 0;
+#X connect 20 0 66 0;
+#X connect 22 0 15 0;
+#X connect 23 0 29 0;
+#X connect 24 0 2 0;
+#X connect 24 0 32 0;
+#X connect 24 0 43 0;
+#X connect 25 0 27 0;
+#X connect 27 0 23 0;
+#X connect 29 0 24 1;
+#X connect 30 0 60 0;
+#X connect 30 0 34 0;
+#X connect 30 0 35 0;
+#X connect 31 1 21 0;
+#X connect 31 1 44 1;
+#X connect 32 0 33 0;
+#X connect 33 0 31 1;
+#X connect 34 0 7 0;
+#X connect 35 0 5 0;
+#X connect 36 0 44 0;
+#X connect 37 0 44 0;
+#X connect 39 0 42 0;
+#X connect 39 0 67 1;
+#X connect 40 0 0 0;
+#X connect 42 0 41 0;
+#X connect 43 0 3 0;
+#X connect 44 1 39 0;
+#X connect 45 0 44 0;
+#X connect 46 0 44 0;
+#X connect 47 0 44 0;
+#X connect 48 0 50 0;
+#X connect 49 0 51 0;
+#X connect 50 0 33 1;
+#X connect 51 0 32 1;
+#X connect 52 0 31 0;
+#X connect 53 0 31 0;
+#X connect 54 0 44 0;
+#X connect 55 0 44 0;
+#X connect 56 0 54 0;
+#X connect 57 0 52 0;
+#X connect 58 0 55 0;
+#X connect 59 0 53 0;
+#X connect 60 0 1 0;
+#X connect 61 1 18 0;
+#X connect 61 2 17 0;
+#X connect 61 3 16 0;
+#X connect 61 4 20 0;
+#X connect 62 0 31 0;
+#X connect 63 0 31 0;
+#X connect 64 0 31 0;
+#X connect 65 0 31 0;
+#X connect 66 0 31 0;
+#X connect 67 0 38 0;
+#X connect 67 0 69 0;
+#X connect 67 1 38 1;
+#X connect 67 1 71 0;
+#X connect 67 2 38 2;
+#X connect 67 2 70 0;
+#X connect 68 0 67 0;
+#X connect 72 0 67 0;
+#X connect 73 0 72 0;
+#X coords 0 1 100 -1 120 600 1 0 0;
+#X restore 238 92 graph;
+#N canvas 611 23 829 839 (subpatch) 0;
+#X obj 9 449 ui.polar @size 79 79 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.polar.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @clockwise 0 @radians 1 @positive 0 @direction
+"E";
+#X obj 39 34 ui.knob @size 28 28 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.0" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Gain" @label_inner
+0 @label_side "bottom" @label_align "left" @label_valign "top" @label_margins
+0 0 @min -45 @max 15 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 1 @active_scale 1;
+#X obj 18 19 ui.meter~ @size 10 100 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "Input" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins -6 0 @interval 25;
+#X obj 42 103 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 14 412 ui.toggle @size 19 19 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Mute" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 83 92 ui.knob @size 24 24 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.1" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "HP" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 1 @max 400 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 12 346 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.2" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "80Hz" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 83 45 ui.knob @size 25 25 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.knob.3" @mouse_events 0 @background_color 0.93 0.93
+0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "LP" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 2000 @max 20000 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 52 340 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.4" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Lv." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 12 298 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.5" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "12KHz" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min -20 @max 20 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 65 299 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.6" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Mid." @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 200 @max 5000 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 83 340 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.7" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Q" @label_inner 0
+@label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0 @max 100 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 229 -83 inlet~;
+#X msg 351 -44 compile;
+#X obj 58 194 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.8" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Att." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0.0001 @max 1 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 14 238 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.9" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Gain" @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min -30 @max 30 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 1 @active_scale 1;
+#X obj 15 197 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.10" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Thrd." @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 0 @max -70 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 15 154 ui.knob @size 25 25 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.11" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Ratio" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+-1 0 @min 1 @max 70 @scale "linear" @midi_channel 0 @midi_control 0
+@midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 57 235 ui.knob @size 20 20 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.knob.12" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @scale_color
+0.6 0.6 0.6 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "Rel." @label_inner
+0 @label_side "top" @label_align "center" @label_valign "top" @label_margins
+0 0 @min 0.001 @max 1 @scale "linear" @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_range 0 @active_scale 0;
+#X obj 96 185 ui.meter~ @size 10 80 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "Out" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins -6 0 @interval 25;
+#X obj 351 -69 loadbang;
+#X floatatom 445 74 8 0 0 0 - - -;
+#X obj 427 125 *~;
+#X obj 445 24 nbx 5 17 -80 10 0 0 empty empty empty 0 -8 0 13 -228856
+-1 -1 -17.1429 256;
+#X text 515 26 dB;
+#X obj 445 47 db2lin;
+#X text 459 127 gain adjustment;
+#X obj 445 98 f2s~ 10 1;
+#X obj 65 -63 loadbang;
+#X obj 332 250 dsp/compressor;
+#X obj 427 175 lop~;
+#X obj 427 223 hip~;
+#X msg 117 -34 20000;
+#X msg 26 -37 20;
+#X msg 162 343 Q \$1;
+#X msg 207 343 freq \$1;
+#X obj 9 540 hoa.scope~ @size 51 51 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj 96 424 ui.gain~ @size 15 160 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Gain" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj -85 395 msg.onload;
+#X obj 62 425 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 128 428 env~ 128;
+#X obj 124 98 env~ 128;
+#X obj 360 339 dsp/peakeq;
+#X msg 162 296 levelh \$1;
+#X msg 162 321 levelm \$1;
+#X msg 164 366 levell \$1;
+#X msg 476 201 \$1 5;
+#X msg 476 154 \$1 5;
+#X obj 442 202 line;
+#X obj 442 153 line;
+#X msg 278 178 active \$1;
+#X msg 279 199 defaults;
+#X msg 252 294 active \$1;
+#X msg 254 314 defaults;
+#X obj 100 285 ui.toggle @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.1" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 9 @label "IO" @label_inner 0 @label_side "top" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 100 153 ui.toggle @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.2" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 9 @label "IO" @label_inner 0 @label_side "top" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 100 304 ui.bang @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X obj 80 153 ui.bang @size 13 13 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "Rst" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X msg 66 -38 -45;
+#X obj 484 344 route ratio threshold ampdb attack release;
+#X msg 142 127 ratio \$1 \, ratio;
+#X msg 144 152 threshold \$1 \, threshold;
+#X msg 143 183 ampdb \$1 \, ampdb;
+#X msg 143 217 attack \$1 \, attack;
+#X msg 144 245 release \$1 \, release;
+#X obj -48 719 hoa.2d.map~ 1 4, f 23;
+#X obj 8 623 msg polar 2;
+#X obj -61 803 throw~ \$0-QD1;
+#X obj 52 807 throw~ \$0-QD3;
+#X obj 12 831 throw~ \$0-QD2;
+#X obj 137 651 msg mute;
+#X msg 137 623 2 \$1;
+#X connect 0 0 66 0;
+#X connect 1 0 23 0;
+#X connect 4 0 71 0;
+#X connect 5 0 46 0;
+#X connect 6 0 45 0;
+#X connect 7 0 47 0;
+#X connect 8 0 44 0;
+#X connect 9 0 43 0;
+#X connect 10 0 35 0;
+#X connect 11 0 34 0;
+#X connect 12 0 22 0;
+#X connect 13 0 29 0;
+#X connect 13 0 42 0;
+#X connect 14 0 63 0;
+#X connect 15 0 62 0;
+#X connect 16 0 61 0;
+#X connect 17 0 60 0;
+#X connect 18 0 64 0;
+#X connect 20 0 13 0;
+#X connect 21 0 27 0;
+#X connect 22 0 2 0;
+#X connect 22 0 30 0;
+#X connect 22 0 41 0;
+#X connect 23 0 25 0;
+#X connect 25 0 21 0;
+#X connect 27 0 22 1;
+#X connect 28 0 58 0;
+#X connect 28 0 32 0;
+#X connect 28 0 33 0;
+#X connect 29 1 19 0;
+#X connect 29 1 42 1;
+#X connect 30 0 31 0;
+#X connect 31 0 29 1;
+#X connect 32 0 7 0;
+#X connect 33 0 5 0;
+#X connect 34 0 42 0;
+#X connect 35 0 42 0;
+#X connect 37 0 40 0;
+#X connect 37 0 65 2;
+#X connect 38 0 0 0;
+#X connect 40 0 39 0;
+#X connect 41 0 3 0;
+#X connect 42 1 37 0;
+#X connect 43 0 42 0;
+#X connect 44 0 42 0;
+#X connect 45 0 42 0;
+#X connect 46 0 48 0;
+#X connect 47 0 49 0;
+#X connect 48 0 31 1;
+#X connect 49 0 30 1;
+#X connect 50 0 29 0;
+#X connect 51 0 29 0;
+#X connect 52 0 42 0;
+#X connect 53 0 42 0;
+#X connect 54 0 52 0;
+#X connect 55 0 50 0;
+#X connect 56 0 53 0;
+#X connect 57 0 51 0;
+#X connect 58 0 1 0;
+#X connect 59 1 16 0;
+#X connect 59 2 15 0;
+#X connect 59 3 14 0;
+#X connect 59 4 18 0;
+#X connect 60 0 29 0;
+#X connect 61 0 29 0;
+#X connect 62 0 29 0;
+#X connect 63 0 29 0;
+#X connect 64 0 29 0;
+#X connect 65 0 36 0;
+#X connect 65 0 67 0;
+#X connect 65 1 36 1;
+#X connect 65 1 69 0;
+#X connect 65 2 36 2;
+#X connect 65 2 68 0;
+#X connect 66 0 65 0;
+#X connect 70 0 65 0;
+#X connect 71 0 70 0;
+#X coords 0 1 100 -1 120 600 1 0 0;
+#X restore 372 91 graph;
+#N canvas 358 127 931 717 (subpatch) 1;
+#X obj 118 51 ui.meter~ @size 15 87 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 96 51 ui.meter~ @size 15 86 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 146 51 ui.gain2~ @size 21 87 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain2~.1" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
+"left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj 278 38 hoa.decoder~ 1 binaural @crop 64, f 35;
+#X obj 580 666 xdac~ 1:4, f 15;
+#X obj 465 232 spat.pan4~ 0.8 pi(), f 20;
+#X obj 31 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 53 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 74 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 96 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 31 238 hoa.scope~ @size 121 121 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj 224 493 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 228 526 env~ 128;
+#X obj 134 412 ui.slider @size 41 178 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.slider.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 11 @label "MASTER" @label_inner 0 @label_side
+"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
+0 @max 1 @mode 0 @scale "linear" @active_scale 0 @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_value 0 @value_pos "center" @value_precision
+2;
+#X obj 336 158 dsp/freeverb freeverb;
+#X obj 380 185 dsp/amp amp;
+#X msg 237 137 compile;
+#X obj 234 114 r compile;
+#X obj 278 391 hoa.decoder~ 1 regular 4;
+#X obj 649 470 *~;
+#X obj 665 475 *~;
+#X obj 675 485 *~;
+#X obj 685 495 *~;
+#X obj 574 580 line;
+#X msg 222 365 compile;
+#X obj 219 343 r compile;
+#X msg 574 557 \$1 20;
+#X obj 576 633 dsp/quadlimiter;
+#X obj 364 710 dsp/limiter;
+#X obj 359 519 dsp/bpfilter;
+#X obj 313 449 dsp/quadamp quadamp;
+#X obj 243 420 dsp/quadfreeverb quadfreeverb;
+#X obj 358 738 s~ Rec-binL;
+#X obj 444 737 s~ Rec-binR;
+#X obj 436 669 hip~ 5;
+#X obj 383 668 hip~ 5;
+#X obj 84 607 env~;
+#X obj 84 636 dbtorms;
+#X obj 48 630 env~;
+#X obj 48 659 dbtorms;
+#X obj 7 657 env~;
+#X obj 7 686 dbtorms;
+#X obj 242 16 catch~ \$0-QD1, f 14;
+#X obj 364 7 catch~ \$0-QD2;
+#X obj 480 12 catch~ \$0-QD3;
+#X obj -36 683 env~;
+#X obj -36 712 dbtorms;
+#X obj 646 533 hip~ 5;
+#X obj 656 543 hip~ 5;
+#X obj 666 553 hip~ 5;
+#X obj 676 563 hip~ 5;
+#X connect 2 0 1 0;
+#X connect 2 1 0 0;
+#X connect 3 0 14 1;
+#X connect 3 1 14 2;
+#X connect 12 0 11 0;
+#X connect 13 0 26 0;
+#X connect 14 1 15 1;
+#X connect 14 2 15 2;
+#X connect 15 1 29 5;
+#X connect 15 2 29 6;
+#X connect 16 0 14 0;
+#X connect 16 0 15 0;
+#X connect 16 0 27 0;
+#X connect 17 0 16 0;
+#X connect 18 0 31 1;
+#X connect 18 1 31 2;
+#X connect 18 2 31 3;
+#X connect 18 3 31 4;
+#X connect 19 0 47 0;
+#X connect 20 0 48 0;
+#X connect 21 0 49 0;
+#X connect 22 0 50 0;
+#X connect 23 0 22 1;
+#X connect 23 0 21 1;
+#X connect 23 0 20 1;
+#X connect 23 0 19 1;
+#X connect 24 0 31 0;
+#X connect 24 0 30 0;
+#X connect 24 0 29 0;
+#X connect 24 0 28 0;
+#X connect 25 0 24 0;
+#X connect 26 0 23 0;
+#X connect 27 1 45 0;
+#X connect 27 1 4 0;
+#X connect 27 2 40 0;
+#X connect 27 2 4 1;
+#X connect 27 3 38 0;
+#X connect 27 3 4 2;
+#X connect 27 4 36 0;
+#X connect 27 4 4 3;
+#X connect 28 1 32 0;
+#X connect 28 2 33 0;
+#X connect 29 1 19 0;
+#X connect 29 2 20 0;
+#X connect 29 3 21 0;
+#X connect 29 4 22 0;
+#X connect 29 5 35 0;
+#X connect 29 6 34 0;
+#X connect 30 1 29 1;
+#X connect 30 2 29 2;
+#X connect 30 3 29 3;
+#X connect 30 4 29 4;
+#X connect 31 1 30 1;
+#X connect 31 2 30 2;
+#X connect 31 3 30 3;
+#X connect 31 4 30 4;
+#X connect 34 0 28 2;
+#X connect 35 0 28 1;
+#X connect 36 0 37 0;
+#X connect 37 0 9 0;
+#X connect 38 0 39 0;
+#X connect 39 0 8 0;
+#X connect 40 0 41 0;
+#X connect 41 0 7 0;
+#X connect 42 0 3 0;
+#X connect 42 0 10 0;
+#X connect 42 0 18 0;
+#X connect 43 0 3 1;
+#X connect 43 0 10 1;
+#X connect 43 0 18 1;
+#X connect 44 0 3 2;
+#X connect 44 0 10 2;
+#X connect 44 0 18 2;
+#X connect 45 0 46 0;
+#X connect 46 0 6 0;
+#X connect 47 0 27 1;
+#X connect 48 0 27 2;
+#X connect 49 0 27 3;
+#X connect 50 0 27 4;
+#X coords 0 1 100 -1 200 600 1 0 0;
+#X restore 507 92 graph;
+#X obj 721 52 declare -lib faustgen2~;
+#X obj 721 28 declare -lib ceammc;
+#X connect 1 0 0 0;
+#X connect 1 1 2 0;
+#X connect 1 1 3 0;

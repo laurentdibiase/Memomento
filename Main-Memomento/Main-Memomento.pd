@@ -1,0 +1,1689 @@
+#N canvas 222 136 939 742 12;
+#X declare -path else;
+#X declare -path else;
+#X declare -lib faustgen2~;
+#X declare -lib ceammc;
+#X declare -path else;
+#X obj 588 14 OSC-Receives;
+#N canvas 388 39 829 839 (subpatch) 0;
+#X obj 9 449 ui.polar @size 79 79 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.polar.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @clockwise 0 @radians 1 @positive 0 @direction
+"E";
+#X obj 14 412 ui.toggle @size 19 19 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Mute" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 9 540 hoa.scope~ @size 51 51 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj 96 424 ui.gain~ @size 15 160 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Gain" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj -85 395 msg.onload;
+#X obj 62 425 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 174 512 env~ 128;
+#X obj -48 719 hoa.2d.map~ 1 4, f 23;
+#X obj 8 623 msg polar 0;
+#X obj -61 803 throw~ \$0-QD1;
+#X obj 52 807 throw~ \$0-QD3;
+#X obj 12 831 throw~ \$0-QD2;
+#X obj 126 643 msg mute;
+#X obj -74 12 r HIdxF;
+#X obj 338 88 r HIdxC;
+#X obj 285 89 r T°F;
+#X obj -71 124 r T°C;
+#X obj 138 115 r Humid;
+#X obj 216 340 loadbang;
+#X obj 499 121 soundfiler;
+#X obj 499 177 samplerate~;
+#X obj 576 206 /;
+#X obj 216 340 loadbang;
+#X msg 216 365 \; speed 100 \; grain 25 \; cents 0;
+#X obj 499 151 t b f, f 14;
+#X text 637 232 sample frequency;
+#X obj 614 192 s \$0-size;
+#X obj 576 231 s \$0-Hz;
+#X obj 19 189 nbx 5 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X obj 646 508 +~;
+#X obj 20 154 nbx 4 16 -1e+37 1e+37 0 0 empty cents empty 0 -8 0 13
+-228856 -1 -1 0 256;
+#X obj 20 120 nbx 4 16 3 1e+37 0 0 empty grain empty 0 -8 0 13 -191407
+-1 -1 25 256;
+#X obj 661 362 -~;
+#X obj 643 388 *~;
+#X obj 731 416 display~ 5;
+#X obj 643 414 display~ 5;
+#X text 779 417 Hz;
+#X obj 638 319 cents2ratio;
+#X obj 518 321 expr 1000 / $f1;
+#X obj 491 379 ms2samps;
+#X text 17 137 Transposition;
+#N canvas 904 88 536 467 grain-2 0;
+#X obj 211 223 +~;
+#X obj 141 194 *~;
+#X obj 306 371 *~;
+#X obj 306 399 outlet~;
+#X obj 229 94 inlet~;
+#X obj 159 171 sh~;
+#X obj 141 93 inlet~;
+#X obj 229 123 phasor~;
+#X obj 229 191 *~;
+#X obj 211 282 wrap2~;
+#X obj 301 143 r \$0-size;
+#X obj 54 123 r~ \$0-samps;
+#X text 91 45 Same thing \, but [pimp~] is out of phase.;
+#X obj 141 123 pimp~ 0 0.5;
+#X obj 324 204 envelope~;
+#X obj 211 308 tabread4~ buffer, f 9;
+#X connect 0 0 9 0;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 4 0 7 0;
+#X connect 5 0 1 1;
+#X connect 6 0 13 0;
+#X connect 7 0 8 0;
+#X connect 8 0 0 1;
+#X connect 9 0 15 0;
+#X connect 10 0 8 1;
+#X connect 10 0 9 2;
+#X connect 11 0 5 0;
+#X connect 13 0 1 0;
+#X connect 13 0 14 0;
+#X connect 13 1 5 1;
+#X connect 14 0 2 1;
+#X connect 15 0 2 0;
+#X restore 664 474 pd grain-2;
+#N canvas 178 37 576 564 grain-1 0;
+#X obj 249 329 +~;
+#X obj 194 300 *~;
+#X obj 344 477 *~;
+#X obj 344 505 outlet~;
+#X obj 267 170 inlet~;
+#X obj 212 277 sh~;
+#X obj 362 310 envelope~;
+#X obj 194 169 inlet~;
+#X obj 267 229 phasor~;
+#X obj 267 297 *~;
+#X obj 249 388 wrap2~;
+#X obj 194 229 pimp~;
+#X obj 339 249 r \$0-size;
+#X obj 104 229 r~ \$0-samps;
+#X text 191 143 transp;
+#X text 268 142 speed;
+#X obj 267 197 display~ 8;
+#X obj 194 197 display~ 8;
+#X text 75 29 The speed frequency is multiplied by the sample lenght
+in samples. The transposition frequency is sent to a [pimp~] object
+\, which also controls the envelope. Its output is multiplied by the
+grain size in samples and summed to the speed output. Now both frequencies
+are combined and the sample is accessed.;
+#X obj 249 414 tabread4~ buffer, f 9;
+#X connect 0 0 10 0;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 4 0 16 0;
+#X connect 5 0 1 1;
+#X connect 6 0 2 1;
+#X connect 7 0 17 0;
+#X connect 8 0 9 0;
+#X connect 9 0 0 1;
+#X connect 10 0 19 0;
+#X connect 11 0 1 0;
+#X connect 11 0 6 0;
+#X connect 11 1 5 1;
+#X connect 12 0 9 1;
+#X connect 12 0 10 2;
+#X connect 13 0 5 0;
+#X connect 16 0 8 0;
+#X connect 17 0 11 0;
+#X connect 19 0 2 0;
+#X restore 573 473 pd grain-1;
+#X obj 491 405 s~ \$0-samps;
+#X floatatom 518 346 5 0 0 0 - - -;
+#X text 384 346 Grain Frequency =>;
+#X obj 731 378 *~;
+#X obj 749 353 r \$0-Hz;
+#X text 594 413 transp;
+#X text 692 415 Hz;
+#X text 770 379 speed;
+#X obj 731 323 / 100;
+#X obj 669 27 declare -path else;
+#X obj 496 61 openpanel;
+#X msg 497 90 read -resize \$1 buffer;
+#X obj 667 126 table buffer;
+#X text 23 6 BOUILLOIRE;
+#X floatatom -72 39 5 0 0 0 - - -;
+#X msg 151 378 store;
+#X msg -89 328 set 0.3 230;
+#X msg 216 365 \; speed 100 \; grain 25 \; cents 0 \;;
+#X obj -74 152 * 15;
+#X obj -74 63 * 5;
+#X obj 267 538 dsp/DoubleLoopPitchshifterDelay DoubleLoopPitchshifterDelay
+;
+#X floatatom 338 115 5 0 0 0 - - -;
+#X obj 338 184 sig~;
+#X obj 338 210 osc~;
+#X obj 338 160 line;
+#X msg 338 138 \$1 150;
+#X obj 209 32 else/rescale~ 19 1100 132 432;
+#X obj 138 140 osci/map 50 100 1 100;
+#X obj 172 587 line;
+#X msg 172 565 \$1 50;
+#X text 18 99 Size;
+#X text 17 170 Speed;
+#X obj 10 246 nbx 3 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X obj 63 246 nbx 3 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X text 8 229 Duree1;
+#X text 61 229 Duree2;
+#X obj 9 282 nbx 3 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X obj 62 282 nbx 3 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X obj 9 317 nbx 3 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X obj 62 317 nbx 3 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X text 7 300 Loop1;
+#X text 60 300 Loop2;
+#X text 7 265 Fdbck1;
+#X text 60 265 Fdbck2;
+#X obj 9 359 nbx 3 16 -1e+37 1e+37 0 0 empty speed empty 0 -8 0 13
+-228856 -1 -1 100 256;
+#X text 7 342 Main;
+#X obj 9 40 ui.bang @size 15 15 @receive "(null)" @send "(null)" @pinned
+0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color
+0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X obj 9 62 ui.toggle @size 15 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.3" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Loop" @label_inner 0 @label_side "right" @label_align
+"left" @label_valign "top" @label_margins 0 0 @on_value 0 @off_value
+1;
+#X text 28 38 Play Sample;
+#X msg 126 617 0 \$1 \, 1 \$1 \, 2 \$1;
+#X connect 0 0 8 0;
+#X connect 1 0 72 0;
+#X connect 3 0 6 0;
+#X connect 3 0 7 0;
+#X connect 4 0 0 0;
+#X connect 6 0 5 0;
+#X connect 7 0 2 0;
+#X connect 7 0 9 0;
+#X connect 7 1 2 1;
+#X connect 7 1 11 0;
+#X connect 7 2 2 2;
+#X connect 7 2 10 0;
+#X connect 8 0 7 0;
+#X connect 12 0 7 0;
+#X connect 13 0 57 0;
+#X connect 14 0 64 0;
+#X connect 16 0 61 0;
+#X connect 17 0 70 0;
+#X connect 18 0 60 0;
+#X connect 19 0 24 0;
+#X connect 20 0 21 0;
+#X connect 21 0 27 0;
+#X connect 22 0 23 0;
+#X connect 24 0 20 0;
+#X connect 24 1 21 1;
+#X connect 24 1 26 0;
+#X connect 28 0 51 0;
+#X connect 29 0 63 1;
+#X connect 30 0 37 0;
+#X connect 31 0 38 0;
+#X connect 31 0 39 0;
+#X connect 32 0 33 1;
+#X connect 33 0 35 0;
+#X connect 34 0 41 1;
+#X connect 34 0 42 1;
+#X connect 35 0 41 0;
+#X connect 35 0 42 0;
+#X connect 37 0 32 0;
+#X connect 38 0 44 0;
+#X connect 39 0 43 0;
+#X connect 41 0 29 1;
+#X connect 42 0 29 0;
+#X connect 44 0 33 0;
+#X connect 46 0 34 0;
+#X connect 47 0 46 1;
+#X connect 51 0 32 1;
+#X connect 51 0 46 0;
+#X connect 53 0 54 0;
+#X connect 54 0 19 0;
+#X connect 57 0 62 0;
+#X connect 59 0 0 0;
+#X connect 61 0 30 0;
+#X connect 62 0 31 0;
+#X connect 63 1 3 0;
+#X connect 64 0 68 0;
+#X connect 65 0 66 0;
+#X connect 67 0 65 0;
+#X connect 68 0 67 0;
+#X connect 70 0 28 0;
+#X connect 71 0 92 0;
+#X connect 72 0 71 0;
+#X connect 89 0 90 0;
+#X connect 89 0 53 0;
+#X connect 92 0 12 0;
+#X coords 0 1 100 -1 120 600 1 0 0;
+#X restore 75 77 graph;
+#N canvas 40 25 1050 853 (subpatch) 1;
+#X obj 9 449 ui.polar @size 79 79 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.polar.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @clockwise 0 @radians 1 @positive 0 @direction
+"E";
+#X obj 14 412 ui.toggle @size 19 19 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Mute" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 9 540 hoa.scope~ @size 51 51 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj -85 395 msg.onload;
+#X obj 62 425 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj -48 719 hoa.2d.map~ 1 4, f 23;
+#X obj 9 623 msg polar 1;
+#X obj -61 803 throw~ \$0-QD1\$0-;
+#X obj 98 804 throw~ \$0-QD3;
+#X obj 12 831 throw~ \$0-QD2;
+#X obj 123 694 msg mute;
+#N canvas 148 27 361 174 delwrite 0;
+#X obj 69 44 inlet~;
+#X obj 70 121 outlet~;
+#X obj 69 78 delwrite~ \$0-buffer 5000;
+#X connect 0 0 2 0;
+#X restore 334 284 pd delwrite;
+#X obj 128 202 s~ \$0-pos;
+#X obj 130 281 s~ \$0-grain;
+#X obj 17 327 nbx 5 14 -1e+37 1e+37 0 0 empty lfnoise-freq empty 0
+-8 0 10 -228856 -1 -1 2 256;
+#X obj 130 228 noise~;
+#X obj 128 148 noise~;
+#X obj 17 346 nbx 5 14 -1e+37 1e+37 0 0 empty freq-offset empty 0 -8
+0 10 -228856 -1 -1 0 256;
+#X obj 18 268 nbx 5 14 -1e+37 1e+37 0 0 empty grao-amp empty 0 -8 0
+10 -228856 -1 -1 80 256;
+#X obj 18 247 nbx 5 14 -1e+37 1e+37 0 0 empty grao-offset empty 0 -8
+0 10 -228856 -1 -1 43 256;
+#X obj 17 198 nbx 5 14 -1e+37 1e+37 0 0 empty pos-amp empty 0 -8 0
+10 -228856 -1 -1 5572 256;
+#X obj 17 178 nbx 5 14 -1e+37 1e+37 0 0 empty pos-offset empty 0 -8
+0 10 -228856 -1 -1 235 256;
+#X obj 17 365 nbx 5 14 -1e+37 1e+37 0 0 empty freq-amp empty 0 -8 0
+10 -228856 -1 -1 4 256;
+#X obj 136 312 stepnoise~;
+#X obj 663 618 initmess \; lfnoise-freq 2 \; freq-amp 4 \; freq-offset
+0 \; grao-amp 100 \; grao-offset 100 \; pos-amp 4800 \; pos-offset
+0;
+#X obj 135 367 s~ \$0-hz;
+#N canvas 382 99 345 218 delread4~ 0;
+#X obj 216 129 +~;
+#X obj 216 157 outlet~;
+#X obj 63 61 inlet~;
+#X text 56 39 dummy inlet;
+#X obj 234 37 r~ \$0-hz;
+#N canvas 145 110 407 454 grain-1 0;
+#X obj 257 333 *~;
+#X obj 81 96 r~ \$0-grain;
+#X obj 105 184 *~;
+#X obj 136 270 +~;
+#X obj 129 215 r~ \$0-pos;
+#X obj 257 370 outlet~;
+#X obj 182 62 inlet~;
+#X obj 182 97 pimp~;
+#X obj 147 181 sh~;
+#X obj 182 246 sh~;
+#X obj 275 297 envelope~;
+#X obj 136 297 delread4~ \$0-buffer, f 10;
+#X connect 0 0 5 0;
+#X connect 1 0 8 0;
+#X connect 2 0 3 0;
+#X connect 3 0 11 0;
+#X connect 4 0 9 0;
+#X connect 6 0 7 0;
+#X connect 7 0 2 0;
+#X connect 7 0 10 0;
+#X connect 7 1 8 1;
+#X connect 7 1 9 1;
+#X connect 8 0 2 1;
+#X connect 9 0 3 1;
+#X connect 10 0 0 1;
+#X connect 11 0 0 0;
+#X restore 150 85 pd grain-1;
+#N canvas 145 110 407 454 grain-2 0;
+#X obj 243 341 *~;
+#X obj 69 96 r~ \$0-grain;
+#X obj 105 184 *~;
+#X obj 136 270 +~;
+#X obj 129 215 r~ \$0-pos;
+#X obj 243 378 outlet~;
+#X obj 165 62 inlet~;
+#X obj 147 181 sh~;
+#X obj 177 246 sh~;
+#X obj 261 305 envelope~;
+#X obj 136 297 delread4~ \$0-buffer, f 9;
+#X obj 165 97 pimp~ 0 0.5;
+#X connect 0 0 5 0;
+#X connect 1 0 7 0;
+#X connect 2 0 3 0;
+#X connect 3 0 10 0;
+#X connect 4 0 8 0;
+#X connect 6 0 11 0;
+#X connect 7 0 2 1;
+#X connect 8 0 3 1;
+#X connect 9 0 0 1;
+#X connect 10 0 0 0;
+#X connect 11 0 2 0;
+#X connect 11 0 9 0;
+#X connect 11 1 7 1;
+#X connect 11 1 8 1;
+#X restore 234 85 pd grain-2;
+#X connect 0 0 1 0;
+#X connect 4 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 0 0;
+#X connect 6 0 0 1;
+#X restore 334 309 pd delread4~;
+#X obj 135 338 rescale~;
+#X obj 128 174 rescale~;
+#X obj 130 254 rescale~;
+#X obj 748 -47 declare -path else;
+#X obj 135 -65 r MugAx;
+#X obj 127 -41 r MugAy;
+#X obj 125 -17 r MugAz;
+#X obj 283 -64 r MugGx;
+#X obj 277 -40 r MugGy;
+#X obj 269 -16 r MugGz;
+#X obj 420 -59 r MugTemp;
+#X obj 557 -58 r MugTouch;
+#X obj 12 44 ui.bang @size 15 15 @receive "(null)" @send "(null)" @pinned
+0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color
+0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X text 41 7 TASSE;
+#X floatatom 421 -27 5 0 0 0 - - -;
+#X floatatom 193 -40 5 0 0 0 - - -;
+#X floatatom 201 -63 5 0 0 0 - - -;
+#X floatatom 183 -19 5 0 0 0 - - -;
+#X floatatom 350 -34 5 0 0 0 - - -;
+#X floatatom 358 -57 5 0 0 0 - - -;
+#X floatatom 330 -12 5 0 0 0 - - -;
+#X obj 12 66 ui.toggle @size 15 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.1" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Loop" @label_inner 0 @label_side "right" @label_align
+"left" @label_valign "top" @label_margins 0 0 @on_value 0 @off_value
+1;
+#X floatatom 556 -5 5 0 0 0 - - -;
+#X obj 556 -35 average 10;
+#X obj 194 77 * -1;
+#X floatatom 526 273 5 0 0 0 - - -;
+#X text 673 325 seuil dB;
+#X floatatom 638 420 5 0 0 0 - - -;
+#X obj 629 393 env~;
+#X obj 639 319 < 8;
+#X obj 572 366 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 556 99 sig~;
+#X obj 818 194 osc~;
+#X obj 556 39 line;
+#N canvas 348 160 506 458 seuil 0;
+#X obj 72 39 inlet;
+#X obj 72 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X obj 72 92 select 1 0;
+#X msg 72 121 0;
+#X obj 72 178 vline~;
+#X msg 72 154 \$1 500;
+#X obj 72 203 outlet~;
+#X obj 129 203 outlet;
+#X msg 113 119 1;
+#X connect 0 0 1 0;
+#X connect 0 0 7 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 8 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 8 0 5 0;
+#X restore 526 343 pd seuil;
+#X obj 681 367 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 36 95 select 1 0;
+#X msg 36 129 0;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X msg 77 127 0.5;
+#X connect 0 0 1 0;
+#X connect 0 0 7 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 8 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 8 0 5 0;
+#X restore 639 342 pd seuil;
+#X obj 18 128 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-228856 -1 -1 -0.359724 256;
+#X obj 334 362 else/pitch.shift~;
+#X floatatom 153 88 5 0 0 0 - - -;
+#X obj 155 64 * -1;
+#X msg 336 55 1;
+#X msg 343 79 0;
+#X text 367 54 1 starts playback;
+#X text 375 80 0 stops it;
+#X obj 153 113 osci/map 1 10 0 10000;
+#X msg 325 28 open audio/Glitch.aiff;
+#X obj 442 191 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 296 75 del 2;
+#X obj 334 111 readsf~ 1, f 16;
+#X obj 674 250 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X obj 36 95 select 1 0;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X connect 0 0 1 0;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 5 0;
+#X restore 612 247 pd seuil;
+#X obj 593 288 *~;
+#X obj 612 227 < 110;
+#X obj 687 294 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 0 23 306 285 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 36 95 select 1 0;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X connect 0 0 1 0;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 5 0;
+#X restore 625 291 pd seuil;
+#X obj 606 317 *~;
+#X msg 305 480 1;
+#X msg 312 504 0;
+#X text 336 479 1 starts playback;
+#X text 344 505 0 stops it;
+#X obj 303 536 readsf~ 1, f 16;
+#X obj 464 93 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 463 115 select 1 0;
+#X msg 463 142 0;
+#X msg 501 141 1;
+#X obj 442 167 gate;
+#X obj -86 352 loadbang;
+#X obj 247 495 del 2;
+#X obj 520 559 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X obj 36 95 select 1 0;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X connect 0 0 1 0;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 5 0;
+#X restore 531 534 pd seuil;
+#X obj 304 559 *~;
+#X obj 538 556 sel 1 0;
+#X msg 576 579 1;
+#X msg 537 582 0;
+#X obj -88 534 unpack 0 0;
+#X floatatom -86 557 5 0 0 0 - - -;
+#X floatatom -39 558 5 0 0 0 - - -;
+#X obj 289 607 spread~ 4;
+#X obj 98 424 ui.gain2~ @size 15 160 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain2~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Gain" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj 605 452 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 36 95 select 1 0;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X connect 0 0 1 0;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 5 0;
+#X restore 543 449 pd seuil;
+#X obj 221 298 +~ 2;
+#X obj 219 321 +~ 4;
+#X floatatom 733 244 5 0 0 0 - - -;
+#X obj 724 217 env~;
+#X msg 294 453 open audio/Bee-colony.wav;
+#X text 18 302 MugTouch;
+#X text 31 42 Play Sample;
+#X text 17 152 Noise 1;
+#X text 17 223 Noise 2;
+#X text 14 107 Transposition;
+#X obj 424 5 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 163 564 env~ 128;
+#X msg 122 672 0 \$1 \, 1 \$1 \, 2 \$1;
+#X obj 122 649 line;
+#X obj 272 17 * 100;
+#X obj 625 271 > 500;
+#X msg 122 627 \$1 15;
+#X obj 508 382 *~;
+#X obj 527 319 >= 8;
+#X obj 179 420 pack 0 0;
+#X obj 219 380 else/display~;
+#X obj 543 429 <= 3;
+#X obj 531 513 >= 3;
+#X obj 449 297 * -10;
+#X msg -85 377 0.4 0;
+#X msg 556 17 \$1 100;
+#X obj 800 170 phasor~;
+#X obj 800 220 *~;
+#X obj 800 262 vcf~ 2;
+#X obj 841 229 * -100;
+#X obj 606 364 *~ 0.4;
+#X obj 618 121 else/rescale~ 1 700 100 4000;
+#X obj 556 147 else/rescale~ 1 700 0 432;
+#X obj 508 472 *~ 0.8;
+#X connect 0 0 6 0;
+#X connect 0 0 102 0;
+#X connect 1 0 125 0;
+#X connect 3 0 0 0;
+#X connect 5 0 2 0;
+#X connect 5 0 7 0;
+#X connect 5 1 2 1;
+#X connect 5 1 9 0;
+#X connect 5 2 2 2;
+#X connect 5 2 8 0;
+#X connect 6 0 5 0;
+#X connect 10 0 5 0;
+#X connect 11 0 26 0;
+#X connect 14 0 23 0;
+#X connect 15 0 29 0;
+#X connect 16 0 28 0;
+#X connect 17 0 27 1;
+#X connect 18 0 29 2;
+#X connect 19 0 29 1;
+#X connect 20 0 28 2;
+#X connect 21 0 28 1;
+#X connect 22 0 27 2;
+#X connect 23 0 27 0;
+#X connect 26 0 65 0;
+#X connect 27 0 25 0;
+#X connect 28 0 12 0;
+#X connect 29 0 13 0;
+#X connect 31 0 43 0;
+#X connect 32 0 42 0;
+#X connect 33 0 44 0;
+#X connect 34 0 46 0;
+#X connect 35 0 45 0;
+#X connect 36 0 47 0;
+#X connect 37 0 41 0;
+#X connect 38 0 50 0;
+#X connect 39 0 74 0;
+#X connect 39 0 48 0;
+#X connect 41 0 119 0;
+#X connect 42 0 67 0;
+#X connect 42 0 132 0;
+#X connect 43 0 51 0;
+#X connect 44 0 138 0;
+#X connect 47 0 123 0;
+#X connect 48 0 89 0;
+#X connect 49 0 134 0;
+#X connect 50 0 49 0;
+#X connect 51 0 52 0;
+#X connect 52 0 56 0;
+#X connect 52 0 127 0;
+#X connect 52 0 130 0;
+#X connect 52 0 131 0;
+#X connect 55 0 54 0;
+#X connect 56 0 63 0;
+#X connect 58 0 140 0;
+#X connect 58 0 141 0;
+#X connect 59 0 136 1;
+#X connect 60 0 58 0;
+#X connect 60 0 80 0;
+#X connect 60 0 124 0;
+#X connect 61 0 126 1;
+#X connect 61 1 57 0;
+#X connect 63 0 139 1;
+#X connect 63 1 62 0;
+#X connect 64 0 65 1;
+#X connect 65 0 126 0;
+#X connect 66 0 72 0;
+#X connect 67 0 66 0;
+#X connect 68 0 76 0;
+#X connect 69 0 76 0;
+#X connect 73 0 76 0;
+#X connect 74 0 73 0;
+#X connect 74 0 75 0;
+#X connect 75 0 68 0;
+#X connect 76 0 11 0;
+#X connect 76 1 93 0;
+#X connect 78 0 79 1;
+#X connect 78 1 77 0;
+#X connect 79 0 83 0;
+#X connect 80 0 78 0;
+#X connect 82 0 83 1;
+#X connect 82 1 81 0;
+#X connect 83 0 139 0;
+#X connect 84 0 88 0;
+#X connect 85 0 88 0;
+#X connect 88 0 98 0;
+#X connect 89 0 90 0;
+#X connect 90 0 91 0;
+#X connect 90 1 92 0;
+#X connect 91 0 93 1;
+#X connect 92 0 93 1;
+#X connect 93 0 74 0;
+#X connect 94 0 133 0;
+#X connect 95 0 84 0;
+#X connect 96 0 99 0;
+#X connect 97 0 98 1;
+#X connect 97 1 96 0;
+#X connect 98 0 105 0;
+#X connect 98 0 105 2;
+#X connect 99 0 101 0;
+#X connect 99 1 100 0;
+#X connect 101 0 113 0;
+#X connect 101 0 95 0;
+#X connect 102 0 103 0;
+#X connect 102 1 104 0;
+#X connect 105 0 106 0;
+#X connect 105 1 106 1;
+#X connect 106 0 5 1;
+#X connect 106 0 120 0;
+#X connect 106 1 5 2;
+#X connect 108 0 142 1;
+#X connect 108 1 107 0;
+#X connect 109 0 27 1;
+#X connect 110 0 27 2;
+#X connect 112 0 111 0;
+#X connect 113 0 88 0;
+#X connect 120 0 4 0;
+#X connect 121 0 10 0;
+#X connect 122 0 121 0;
+#X connect 123 0 64 0;
+#X connect 124 0 82 0;
+#X connect 125 0 122 0;
+#X connect 126 0 142 0;
+#X connect 127 0 61 0;
+#X connect 130 0 108 0;
+#X connect 131 0 97 0;
+#X connect 132 0 65 2;
+#X connect 133 0 0 0;
+#X connect 134 0 60 0;
+#X connect 135 0 136 0;
+#X connect 136 0 137 0;
+#X connect 137 0 79 0;
+#X connect 138 0 137 1;
+#X connect 138 0 135 0;
+#X connect 139 0 55 0;
+#X connect 139 0 105 1;
+#X connect 140 0 59 0;
+#X connect 141 0 23 0;
+#X connect 141 0 109 0;
+#X connect 141 0 110 0;
+#X connect 141 0 112 0;
+#X connect 142 0 105 3;
+#X connect 142 0 105 0;
+#X coords 0 1 100 -1 120 600 1 0 0;
+#X restore 209 77 graph;
+#N canvas 250 23 1155 844 (subpatch) 0;
+#X obj 9 449 ui.polar @size 79 79 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.polar.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @clockwise 0 @radians 1 @positive 0 @direction
+"E";
+#X obj 14 412 ui.toggle @size 19 19 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Mute" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 9 540 hoa.scope~ @size 51 51 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj -138 393 msg.onload;
+#X obj 62 425 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 242 426 env~ 128;
+#X obj -48 719 hoa.2d.map~ 1 4, f 23;
+#X obj 8 623 msg polar 2;
+#X obj -61 803 throw~ \$0-QD1;
+#X obj 52 807 throw~ \$0-QD3;
+#X obj 12 831 throw~ \$0-QD2;
+#X obj -151 653 msg mute;
+#X obj 875 190 soundfiler;
+#X obj 875 228 expr 44100 / $f1;
+#X floatatom 859 384 5 0 0 0 - - -;
+#X obj 859 437 phasor~;
+#X obj 859 410 *;
+#X obj 721 365 hsl 128 15 -10 10 0 0 empty empty empty -2 -6 0 8 -262144
+-1 -1 6985 1;
+#X obj 10 114 hsl 200 15 0 1 0 0 \$0-rightLimit empty empty -2 -6 0
+8 -262144 -1 -1 19900 1;
+#X obj 10 80 hsl 200 15 0 1 0 0 \$0-leftLimit empty empty -2 -6 0 8
+-262144 -1 -1 0 1;
+#X obj 858 500 +~;
+#X obj 955 346 -;
+#X floatatom 989 347 5 0 0 0 - - -;
+#X obj 958 310 t f b;
+#X obj 857 543 *~;
+#X obj 858 267 expr 1 / $f1;
+#X obj 858 318 *;
+#X obj 937 516 unsig~ 20;
+#X text -245 212 slider shows playing position;
+#X text -215 250 difference of both (;
+#X text -218 269 always calculated \, not;
+#X text -219 312 input on the left);
+#X obj 896 352 t b f;
+#X obj 858 465 *~;
+#X text -222 286 only if there is an;
+#X text 752 341 playback speed;
+#X floatatom 603 329 5 0 1e+06 2 Durée_grain_(ms) - -;
+#X obj 604 362 expr 1000 / $f1;
+#X obj 775 494 -~ 0.5;
+#X obj 775 519 *~ 0.5;
+#X obj 775 548 cos~;
+#X obj 604 387 phasor~;
+#X obj 839 610 *~;
+#X msg 559 310 100;
+#X obj 559 285 loadbang;
+#X obj 754 590 *~;
+#X obj 509 422 noise~;
+#X obj 614 574 >~;
+#X obj 509 453 samphold~ 0.01;
+#X obj 633 449 loadbang;
+#X obj 635 510 hsl 128 15 0 1 0 0 empty empty Raréfaction -2 -8 0
+10 -257985 -1 -1 0 1;
+#X obj 509 477 +~ 1;
+#X obj 509 501 *~ 0.5;
+#X msg 633 474 0;
+#X floatatom 632 530 5 0 0 0 - - -;
+#X text 211 -96 Granulator Multiposition Player;
+#X floatatom 718 385 5 -10 10 0 - - -;
+#X text 3 92 |left limit;
+#X text 128 97 right limit|;
+#X obj 719 291 loadbang;
+#X msg 719 316 1;
+#X msg 722 339 0;
+#X obj 789 836 s~ PlayMultiPos;
+#X obj -166 119 r~ PlayMultiPos;
+#X text 144 10 CEINTURE;
+#N canvas 122 395 765 483 (subpatch) 0;
+#X obj 0 0 cnv 15 220 260 empty empty SFR-Granulator~ 55 250 0 12 -260097
+-195568 0;
+#X obj 22 41 vsl 15 128 0 100 0 0 \$0-density_randomness \$0-density_randomness_OSC
+Density_Randomness(%) 0 -8 0 8 -98368 -1 -114752 0 1;
+#X obj 3 32 vsl 15 128 1 20000 1 0 \$0-density \$0-density_OSC Density(Hz)
+0 -8 0 8 -64 -1 -64 0 1;
+#X obj 94 78 vsl 15 128 1 99 0 0 \$0-grain_length \$0-grain_length_OSC
+Grain_Length(%) 0 -8 0 8 -259073 -1 -259073 0 1;
+#X obj 76 69 vsl 15 128 0 6000 0 0 \$0-max_delay \$0-max_delay_OSC
+Max_Delay(ms) 0 -8 0 8 -258049 -1 -258049 0 1;
+#X obj 130 97 vsl 15 128 1 10 0 0 \$0-envelope_sharpness \$0-envelope_sharpness_OSC
+Envelope_Sharpness 0 -8 0 8 -262081 -1 -262081 0 1;
+#X obj 112 88 vsl 15 128 0 2 0 0 \$0-amplitude \$0-amplitude_OSC Amplitude
+0 -8 0 8 -260417 -1 -257985 0 1;
+#X obj 58 60 vsl 15 128 0 100 0 0 \$0-pitch_randomness \$0-pitch_randomness_OSC
+Pitch_Randomness(%) 0 -8 0 8 -258071 -1 -258071 0 1;
+#X obj 40 51 vsl 15 128 -200 500 0 0 \$0-pitch \$0-pitch_OSC Pitch(%)
+0 -8 0 8 -184384 -1 -184384 0 1;
+#X obj 148 107 vsl 15 128 0 1 0 0 \$0-stereo_spread \$0-stereo_spread_OSC
+Stereo_Spread 0 -8 0 8 -171969 -1 -171969 0 1;
+#X obj 386 63 inlet~;
+#N canvas 25 349 1375 272 OSC-control 0;
+#X obj 8 8 inlet;
+#X obj 256 182 s \$0-stereo_spread_OSC;
+#X obj 225 206 s \$0-envelope_sharpness_OSC;
+#X obj 195 229 s \$0-amplitude_OSC;
+#X obj 164 252 s \$0-grain_length_OSC;
+#X obj 134 275 s \$0-max_delay_OSC;
+#X obj 103 297 s \$0-pitch_randomness_OSC;
+#X obj 73 321 s \$0-pitch_OSC;
+#X obj 42 344 s \$0-density_randomness_OSC;
+#X obj 66 396 s \$0-density_OSC;
+#X obj 286 160 s \$0-reset_OSC;
+#X obj 345 116 s \$0-remove_voice_OSC;
+#X obj 317 139 s \$0-add_voice_OSC;
+#X obj 9 373 moses 0.34;
+#X obj 9 30 OSCroute /density /density_randomness /pitch /pitch_randomness
+/max_delay /grain_length /amplitude /envelope_sharpness /stereo_spread
+/reset /add_voice /remove_voice /display;
+#X obj 358 91 s \$0-display_OSC;
+#X connect 0 0 14 0;
+#X connect 13 1 9 0;
+#X connect 14 0 13 0;
+#X connect 14 1 8 0;
+#X connect 14 2 7 0;
+#X connect 14 3 6 0;
+#X connect 14 4 5 0;
+#X connect 14 5 4 0;
+#X connect 14 6 3 0;
+#X connect 14 7 2 0;
+#X connect 14 8 1 0;
+#X connect 14 9 10 0;
+#X connect 14 10 12 0;
+#X connect 14 11 11 0;
+#X connect 14 12 15 0;
+#X restore 562 66 pd OSC-control;
+#X obj 382 335 outlet~;
+#X obj 477 335 outlet~;
+#N canvas 302 237 599 477 voices 0;
+#X obj 274 415 outlet~;
+#X obj 342 415 outlet~;
+#X obj 96 18 inlet~;
+#X obj 183 85 grainvoice~ 1 \$0;
+#X obj 187 111 grainvoice~ 1 \$0;
+#X obj 182 138 grainvoice~ 1 \$0;
+#X obj 181 164 grainvoice~ 1 \$0;
+#X obj 180 187 grainvoice~ 1 \$0;
+#X obj 182 211 grainvoice~ 1 \$0;
+#X obj 182 239 grainvoice~ 1 \$0;
+#X obj 312 17 inlet~;
+#X obj 399 84 grainvoice~ 1 \$0;
+#X obj 403 110 grainvoice~ 1 \$0;
+#X obj 398 137 grainvoice~ 1 \$0;
+#X obj 397 163 grainvoice~ 1 \$0;
+#X obj 396 186 grainvoice~ 1 \$0;
+#X obj 398 210 grainvoice~ 1 \$0;
+#X obj 398 238 grainvoice~ 1 \$0;
+#X obj 274 327 st-spread~;
+#X connect 2 0 3 0;
+#X connect 2 0 4 0;
+#X connect 2 0 5 0;
+#X connect 2 0 6 0;
+#X connect 2 0 7 0;
+#X connect 2 0 8 0;
+#X connect 2 0 9 0;
+#X connect 3 0 18 0;
+#X connect 4 0 18 0;
+#X connect 5 0 18 0;
+#X connect 6 0 18 0;
+#X connect 7 0 18 0;
+#X connect 8 0 18 0;
+#X connect 9 0 18 0;
+#X connect 10 0 11 0;
+#X connect 10 0 12 0;
+#X connect 10 0 13 0;
+#X connect 10 0 14 0;
+#X connect 10 0 15 0;
+#X connect 10 0 16 0;
+#X connect 10 0 17 0;
+#X connect 11 0 18 1;
+#X connect 12 0 18 1;
+#X connect 13 0 18 1;
+#X connect 14 0 18 1;
+#X connect 15 0 18 1;
+#X connect 16 0 18 1;
+#X connect 17 0 18 1;
+#X connect 18 0 0 0;
+#X connect 18 1 1 0;
+#X restore 470 169 pd voices;
+#X obj 182 28 tgl 15 0 empty bypass Bypass -10 25 0 10 -191407 -1 -191407
+0 1;
+#X msg 284 28 0;
+#X msg 284 4 loadbang;
+#X obj 167 118 vsl 15 128 0.01 1 0 0 empty empty Wet_Dry 0 -8 0 8 -262144
+-1 -1 0 1;
+#X floatatom 186 272 5 0 0 0 - - -;
+#X obj 477 286 xfade~;
+#X obj 381 287 xfade~;
+#X msg 275 59 loadbang;
+#X msg 275 83 0.5;
+#X obj 583 287 delread~ toto 1000;
+#X obj 583 218 r duree;
+#X floatatom 583 251 5 0 0 0 - - -;
+#X obj 585 157 delwrite~ toto 5000;
+#X obj 94 -63 r BeltDist;
+#X obj 95 -34 osci/map 10 800 500 -200;
+#X floatatom 298 -43 5 0 0 0 - - -;
+#X connect 10 0 14 0;
+#X connect 10 0 21 1;
+#X connect 10 0 20 1;
+#X connect 14 0 21 0;
+#X connect 14 1 20 0;
+#X connect 15 0 18 0;
+#X connect 16 0 15 0;
+#X connect 17 0 16 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 2;
+#X connect 19 0 21 2;
+#X connect 20 0 13 0;
+#X connect 21 0 12 0;
+#X connect 21 0 27 0;
+#X connect 22 0 23 0;
+#X connect 23 0 8 0;
+#X connect 24 0 14 1;
+#X connect 25 0 26 0;
+#X connect 26 0 24 0;
+#X connect 28 0 29 0;
+#X connect 29 0 8 0;
+#X connect 30 0 29 0;
+#X coords 0 1 100 -1 220 260 1 0 0;
+#X restore 0 142 graph;
+#X floatatom -97 456 5 0 5000 0 - - -;
+#X obj -111 480 s duree;
+#X obj 589 -45 r BeltAx;
+#X obj 818 62 r BeltAy;
+#X obj 588 0 r BeltAz;
+#X floatatom 588 21 5 0 0 0 - - -;
+#X floatatom 818 82 5 0 0 0 - - -;
+#X floatatom 589 -24 5 0 0 0 - - -;
+#X obj -161 169 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj -165 145 env~ 128;
+#X obj -7 -98 r BeltGz;
+#X obj 69 -98 r BeltGy;
+#X obj -80 -101 r BeltGx;
+#X obj 583 -103 r BeltTemp;
+#X obj -8 -72 * 10;
+#X floatatom -1 -40 5 0 0 0 - - -;
+#X obj 937 544 s \$0-sliderPlayer;
+#X floatatom 83 -42 5 0 0 0 - - -;
+#X floatatom -84 -34 5 0 0 0 - - -;
+#X obj -80 -72 * -100;
+#X obj 73 -70 * 1000;
+#X obj -151 601 line;
+#X msg -151 579 \$1 50;
+#X floatatom 991 642 5 0 0 0 - - -;
+#X obj 982 615 env~;
+#X msg 369 53 1;
+#X msg 376 77 0;
+#X text 400 52 1 starts playback;
+#X text 408 78 0 stops it;
+#X obj 367 109 readsf~ 1, f 16;
+#X obj 311 68 del 2;
+#X obj 445 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 36 95 select 1 0;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X connect 0 0 1 0;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 5 0;
+#X restore 399 182 pd seuil;
+#X obj 489 98 sel 1 0;
+#X msg 487 120 0;
+#X obj 300 407 spread~ 4;
+#X obj 936 739 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X obj 36 95 select 0 1;
+#X connect 0 0 1 0;
+#X connect 0 0 7 0;
+#X connect 1 0 8 0;
+#X connect 2 0 5 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 8 0 2 0;
+#X connect 8 1 3 0;
+#X restore 874 736 pd seuil;
+#X obj 814 -50 else/rescale~ 1 10000 0 432;
+#X obj 96 424 ui.gain2~ @size 15 160 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain2~.1" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Gain" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X msg 1043 38 1;
+#X msg 1050 62 0;
+#X text 1074 37 1 starts playback;
+#X text 1082 63 0 stops it;
+#X obj 1041 94 readsf~ 1, f 16;
+#X obj 985 53 del 2;
+#X obj 1056 144 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 36 95 select 1 0;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X connect 0 0 1 0;
+#X connect 0 0 8 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 5 0;
+#X restore 1067 119 pd seuil;
+#X obj 1052 193 *~;
+#X obj 1074 141 sel 1 0;
+#X msg 1073 167 0;
+#X msg 1032 11 open audio/Bee-colony.wav;
+#N canvas 0 23 297 300 Player3 0;
+#N canvas 0 23 450 300 (subpatch) 0;
+#X array Player3 555010 float 2;
+#X coords 0 1 555010 -1 200 140 1 0 0;
+#X restore 33 56 graph;
+#X obj 31 204 hsl 200 15 0 1 0 0 empty \$0-sliderPlayer empty -2 -6
+0 8 -262144 -1 -1 0 1;
+#X restore 1045 512 pd Player3;
+#X obj 857 579 tabread4~ Player3;
+#X msg 663 153 read -resize audio/Birds-wings.wav Player3;
+#X msg 358 26 open audio/Dolphin.wav;
+#X msg 521 122 1;
+#X obj 488 168 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj -73 329 loadbang;
+#X msg -73 351 0.8 30;
+#X obj -85 28 loadbang;
+#X msg -85 53 1;
+#X obj 17 19 ui.bang @size 15 15 @receive "(null)" @send "(null)" @pinned
+0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color
+0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X obj 17 41 ui.toggle @size 15 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.2" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Loop" @label_inner 0 @label_side "right" @label_align
+"left" @label_valign "top" @label_margins 0 0 @on_value 0 @off_value
+1;
+#X obj 489 146 gate;
+#X obj 378 208 *~;
+#X obj 493 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 959 285 r \$0-leftLimit;
+#X obj 1002 320 r \$0-rightLimit;
+#X floatatom 923 692 5 0 0 0 - - -;
+#X obj 934 663 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 0 23 296 244 seuil 0;
+#X obj 37 37 inlet;
+#X obj 37 73 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X msg 36 129 0;
+#X msg 77 127 1;
+#X obj 40 191 vline~;
+#X msg 41 167 \$1 500;
+#X obj 40 216 outlet~;
+#X obj 117 216 outlet;
+#X obj 36 95 select 0 1;
+#X connect 0 0 1 0;
+#X connect 0 0 7 0;
+#X connect 1 0 8 0;
+#X connect 2 0 5 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 8 0 2 0;
+#X connect 8 1 3 0;
+#X restore 872 660 pd seuil;
+#X floatatom 893 761 5 0 0 0 - - -;
+#X obj 841 693 *~;
+#X obj 841 757 *~;
+#X obj 874 716 >= 3;
+#X obj 872 640 <= -3;
+#X obj 997 175 sel 1 0;
+#X msg 995 197 0;
+#X msg 1029 199 1;
+#X obj 996 245 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 997 223 gate;
+#X obj 1001 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X text 36 17 Play Sample;
+#X msg -151 625 0 \$1 \, 1 \$1 \, 2 \$1;
+#X connect 0 0 7 0;
+#X connect 1 0 88 0;
+#X connect 3 0 0 0;
+#X connect 5 0 4 0;
+#X connect 6 0 2 0;
+#X connect 6 0 8 0;
+#X connect 6 1 2 1;
+#X connect 6 1 10 0;
+#X connect 6 2 2 2;
+#X connect 6 2 9 0;
+#X connect 7 0 6 0;
+#X connect 11 0 6 0;
+#X connect 12 0 13 0;
+#X connect 12 0 24 1;
+#X connect 12 1 147 0;
+#X connect 13 0 26 1;
+#X connect 14 0 16 0;
+#X connect 15 0 33 0;
+#X connect 16 0 15 0;
+#X connect 17 0 32 0;
+#X connect 17 0 56 0;
+#X connect 20 0 27 0;
+#X connect 20 0 24 0;
+#X connect 21 0 25 0;
+#X connect 21 0 33 1;
+#X connect 22 0 21 0;
+#X connect 23 0 21 1;
+#X connect 23 0 20 1;
+#X connect 23 1 22 0;
+#X connect 24 0 119 0;
+#X connect 25 0 26 0;
+#X connect 26 0 14 0;
+#X connect 27 0 82 0;
+#X connect 32 0 14 0;
+#X connect 32 1 16 1;
+#X connect 33 0 20 0;
+#X connect 36 0 37 0;
+#X connect 37 0 41 0;
+#X connect 38 0 39 0;
+#X connect 39 0 40 0;
+#X connect 40 0 45 1;
+#X connect 41 0 38 0;
+#X connect 41 0 48 1;
+#X connect 42 0 139 0;
+#X connect 42 0 140 0;
+#X connect 43 0 36 0;
+#X connect 44 0 43 0;
+#X connect 45 0 42 0;
+#X connect 46 0 48 0;
+#X connect 47 0 45 0;
+#X connect 48 0 51 0;
+#X connect 49 0 53 0;
+#X connect 50 0 54 0;
+#X connect 51 0 52 0;
+#X connect 52 0 47 0;
+#X connect 53 0 50 0;
+#X connect 54 0 47 1;
+#X connect 59 0 60 0;
+#X connect 60 0 17 0;
+#X connect 61 0 17 0;
+#X connect 63 0 65 0;
+#X connect 63 0 75 0;
+#X connect 65 0 101 1;
+#X connect 65 1 101 2;
+#X connect 66 0 67 0;
+#X connect 68 0 73 0;
+#X connect 69 0 72 0;
+#X connect 70 0 71 0;
+#X connect 72 0 141 0;
+#X connect 72 0 142 0;
+#X connect 75 0 74 0;
+#X connect 76 0 80 0;
+#X connect 77 0 86 0;
+#X connect 78 0 85 0;
+#X connect 80 0 81 0;
+#X connect 85 0 84 0;
+#X connect 86 0 83 0;
+#X connect 87 0 150 0;
+#X connect 88 0 87 0;
+#X connect 90 0 89 0;
+#X connect 91 0 95 0;
+#X connect 92 0 95 0;
+#X connect 95 0 101 0;
+#X connect 95 0 101 3;
+#X connect 95 1 130 0;
+#X connect 96 0 91 0;
+#X connect 98 0 131 1;
+#X connect 98 1 97 0;
+#X connect 99 0 100 0;
+#X connect 99 1 122 0;
+#X connect 100 0 121 0;
+#X connect 100 0 96 0;
+#X connect 100 0 130 1;
+#X connect 101 0 105 0;
+#X connect 101 0 5 0;
+#X connect 101 1 105 1;
+#X connect 103 0 140 1;
+#X connect 103 1 102 0;
+#X connect 105 0 6 2;
+#X connect 105 1 6 3;
+#X connect 106 0 110 0;
+#X connect 107 0 110 0;
+#X connect 111 0 106 0;
+#X connect 112 0 115 0;
+#X connect 113 0 114 1;
+#X connect 113 1 112 0;
+#X connect 115 0 116 0;
+#X connect 116 0 117 0;
+#X connect 116 0 111 0;
+#X connect 117 0 110 0;
+#X connect 119 0 42 1;
+#X connect 119 0 90 0;
+#X connect 120 0 12 0;
+#X connect 121 0 95 0;
+#X connect 122 0 130 1;
+#X connect 123 0 121 0;
+#X connect 123 0 96 0;
+#X connect 124 0 125 0;
+#X connect 125 0 0 0;
+#X connect 126 0 127 0;
+#X connect 127 0 18 0;
+#X connect 128 0 129 0;
+#X connect 128 0 123 0;
+#X connect 128 0 146 0;
+#X connect 129 0 132 0;
+#X connect 129 0 148 0;
+#X connect 130 0 123 0;
+#X connect 132 0 99 0;
+#X connect 133 0 23 0;
+#X connect 134 0 22 0;
+#X connect 137 0 139 1;
+#X connect 137 1 136 0;
+#X connect 139 0 62 0;
+#X connect 140 0 62 0;
+#X connect 141 0 103 0;
+#X connect 141 0 138 0;
+#X connect 142 0 137 0;
+#X connect 142 0 135 0;
+#X connect 143 0 144 0;
+#X connect 143 1 145 0;
+#X connect 144 0 147 1;
+#X connect 145 0 147 1;
+#X connect 146 0 120 0;
+#X connect 147 0 146 0;
+#X connect 148 0 143 0;
+#X connect 150 0 11 0;
+#X coords 0 1 100 -1 220 600 1 0 0;
+#X restore 343 77 graph;
+#N canvas 393 161 931 717 (subpatch) 0;
+#X obj 580 666 xdac~ 1:4, f 15;
+#X obj 31 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 53 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 74 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 96 421 ui.meter~ @size 15 103 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
+0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
+0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 37 238 hoa.scope~ @size 121 121 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj 96 568 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 450 668 env~ 128;
+#X obj 134 412 ui.slider @size 41 178 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.slider.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 11 @label "MASTER" @label_inner 0 @label_side
+"top" @label_align "center" @label_valign "top" @label_margins 0 0
+@min 0 @max 1 @mode 0 @scale "linear" @active_scale 0 @midi_channel
+0 @midi_control 0 @midi_pickup 1 @show_value 0 @value_pos "center"
+@value_precision 2;
+#X obj 536 312 hoa.decoder~ 1 regular 4;
+#X obj 591 559 *~;
+#X obj 622 534 *~;
+#X obj 652 512 *~;
+#X obj 681 487 *~;
+#X msg 318 190 compile;
+#X msg 534 436 \$1 20;
+#X obj 576 633 dsp/quadlimiter;
+#X obj 611 415 dsp/bpfilter;
+#X obj 571 376 dsp/quadamp quadamp;
+#X obj 501 341 dsp/quadfreeverb quadfreeverb;
+#X obj 84 607 env~;
+#X obj 84 636 dbtorms;
+#X obj 48 630 env~;
+#X obj 48 659 dbtorms;
+#X obj 7 657 env~;
+#X obj 7 686 dbtorms;
+#X obj 219 8 catch~ \$0-QD1, f 14;
+#X obj 330 9 catch~ \$0-QD2;
+#X obj 431 9 catch~ \$0-QD3;
+#X obj -36 683 env~;
+#X obj -36 712 dbtorms;
+#X obj 591 582 hip~ 5;
+#X obj 622 559 hip~ 5;
+#X obj 652 535 hip~ 5;
+#X obj 681 511 hip~ 5;
+#X obj 534 459 line~;
+#X obj 315 168 loadbang;
+#X obj 38 73 nbx 5 14 0 1 0 0 empty empty Damp 0 -8 0 10 -262144 -1
+-1 0.29 256;
+#X obj 39 101 nbx 5 14 0 1 0 0 empty empty Room_Size 0 -8 0 10 -262144
+-1 -1 0.13 256;
+#X msg 259 277 combfeed \$1;
+#X msg 259 246 damping \$1;
+#X obj 37 132 nbx 5 14 0 1 0 0 empty empty Stereo_Spread 0 -8 0 10
+-262144 -1 -1 0.2 256;
+#X obj 38 160 nbx 5 14 0 1 0 0 empty empty Wet_Dry 0 -8 0 10 -262144
+-1 -1 0.35 256;
+#X msg 260 307 spatSpread \$1;
+#X msg 260 337 g \$1;
+#X connect 7 0 6 0;
+#X connect 8 0 15 0;
+#X connect 9 0 19 1;
+#X connect 9 1 19 2;
+#X connect 9 2 19 3;
+#X connect 9 3 19 4;
+#X connect 10 0 31 0;
+#X connect 11 0 32 0;
+#X connect 12 0 33 0;
+#X connect 13 0 34 0;
+#X connect 14 0 19 0;
+#X connect 14 0 18 0;
+#X connect 14 0 17 0;
+#X connect 14 0 16 0;
+#X connect 15 0 35 0;
+#X connect 16 1 29 0;
+#X connect 16 1 0 0;
+#X connect 16 2 24 0;
+#X connect 16 2 0 1;
+#X connect 16 3 22 0;
+#X connect 16 3 0 2;
+#X connect 16 4 20 0;
+#X connect 16 4 0 3;
+#X connect 16 4 7 0;
+#X connect 17 1 10 0;
+#X connect 17 2 11 0;
+#X connect 17 3 12 0;
+#X connect 17 4 13 0;
+#X connect 18 1 17 1;
+#X connect 18 2 17 2;
+#X connect 18 3 17 3;
+#X connect 18 4 17 4;
+#X connect 19 1 18 1;
+#X connect 19 2 18 2;
+#X connect 19 3 18 3;
+#X connect 19 4 18 4;
+#X connect 20 0 21 0;
+#X connect 21 0 4 0;
+#X connect 22 0 23 0;
+#X connect 23 0 3 0;
+#X connect 24 0 25 0;
+#X connect 25 0 2 0;
+#X connect 26 0 5 0;
+#X connect 26 0 9 0;
+#X connect 27 0 5 1;
+#X connect 27 0 9 1;
+#X connect 28 0 5 2;
+#X connect 28 0 9 2;
+#X connect 29 0 30 0;
+#X connect 30 0 1 0;
+#X connect 31 0 16 1;
+#X connect 32 0 16 2;
+#X connect 33 0 16 3;
+#X connect 34 0 16 4;
+#X connect 35 0 13 1;
+#X connect 35 0 12 1;
+#X connect 35 0 11 1;
+#X connect 35 0 10 1;
+#X connect 36 0 14 0;
+#X connect 37 0 40 0;
+#X connect 38 0 39 0;
+#X connect 39 0 19 0;
+#X connect 40 0 19 0;
+#X connect 41 0 43 0;
+#X connect 42 0 44 0;
+#X connect 43 0 19 0;
+#X connect 44 0 19 0;
+#X coords 0 1 100 -1 200 600 1 0 0;
+#X restore 716 77 graph;
+#X obj 764 38 declare -lib faustgen2~;
+#X obj 792 13 declare -lib ceammc;
+#N canvas 340 39 829 839 (subpatch) 0;
+#X obj 9 449 ui.polar @size 79 79 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.polar.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @clockwise 0 @radians 1 @positive 0 @direction
+"E";
+#X obj 14 412 ui.toggle @size 19 19 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Mute" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @on_value 1 @off_value
+0;
+#X obj 9 540 hoa.scope~ @size 51 51 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 100 @order 1 @view 0;
+#X obj 96 424 ui.gain~ @size 15 160 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Gain" @label_inner 0 @label_side "bottom" @label_align
+"center" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj -85 395 msg.onload;
+#X obj 62 425 ui.number~ @size 26 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 9 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 0 @interval 70;
+#X obj 128 428 env~ 128;
+#X obj -48 719 hoa.2d.map~ 1 4, f 23;
+#X obj 8 623 msg polar 1;
+#X obj -61 803 throw~ \$0-QD1\$0-;
+#X obj 52 807 throw~ \$0-QD3;
+#X obj 12 831 throw~ \$0-QD2;
+#X obj 203 674 msg mute;
+#X obj 623 -19 declare -path else;
+#X msg 203 646 3 \$1;
+#X text 27 7 AMBIANCE;
+#X obj 202 621 line;
+#X msg 202 599 \$1 50;
+#X obj 12 44 ui.bang @size 15 15 @receive "(null)" @send "(null)" @pinned
+0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color
+0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X obj 12 66 ui.toggle @size 15 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.toggle.4" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "Loop" @label_inner 0 @label_side "right" @label_align
+"left" @label_valign "top" @label_margins 0 0 @on_value 0 @off_value
+1;
+#X text 31 42 Play Sample;
+#X connect 0 0 8 0;
+#X connect 1 0 17 0;
+#X connect 3 0 6 0;
+#X connect 3 0 7 3;
+#X connect 4 0 0 0;
+#X connect 6 0 5 0;
+#X connect 7 0 2 0;
+#X connect 7 0 9 0;
+#X connect 7 1 2 1;
+#X connect 7 1 11 0;
+#X connect 7 2 2 2;
+#X connect 7 2 10 0;
+#X connect 8 0 7 0;
+#X connect 12 0 7 0;
+#X connect 14 0 12 0;
+#X connect 16 0 14 0;
+#X connect 17 0 16 0;
+#X connect 18 0 19 0;
+#X coords 0 1 100 -1 120 600 1 0 0;
+#X restore 579 77 graph;
+#X text 406 39 Dauphin;
+#X text 405 16 Baleine;
+#X obj 848 92 ui.dsp~ @size 55 55 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X text 147 47 Harp;
+#X text 144 12 Mer;
+#X text 469 39 Bird;
+#X text 146 30 Ice;
+#X text 255 27 Glitch;
+#X text 263 49 Bee;
