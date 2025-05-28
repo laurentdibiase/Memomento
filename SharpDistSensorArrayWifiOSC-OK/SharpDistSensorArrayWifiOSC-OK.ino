@@ -20,7 +20,7 @@ int status = WL_IDLE_STATUS;      //connection status
 //IPAddress arduIp(128, 32, 122, 252);
 
 //destination IP !!!
-IPAddress outIp(192, 168, 4, 2);//IP adress
+IPAddress outIp(192, 168, 4, 2);  //IP adress
 
 
 //ports to listen for and send OSC messages
