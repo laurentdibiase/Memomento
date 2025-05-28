@@ -1,2 +1,2 @@
-#define SECRET_SSID "CristinaNet"
-#define SECRET_PASS "CristinaPass"
+#define SECRET_SSID "PasswordNet"
+#define SECRET_PASS "PasswordPass"
