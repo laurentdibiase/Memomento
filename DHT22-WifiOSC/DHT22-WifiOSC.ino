@@ -1,12 +1,7 @@
-//Utilise une carte type MKR1010 pour connecter à un réseau wifi local ( Point d'accès), 
-//et envoyer les valeurs de données Capteur d'humidité et de température DHT22 via OSC UDP.
-//Fonctionne!!
-
-
-
+//Using MKR1010 to connect to local wifi network 
+//Send DHT22 values to OSC UDP.
 // Example testing sketch for various DHT humidity/temperature sensors
-// Written by ladyada, public domain
-
+// Inspired by ladyada, public domain
 // REQUIRES the following Arduino libraries:
 // - DHT Sensor Library: https://github.com/adafruit/DHT-sensor-library
 // - Adafruit Unified Sensor Lib: https://github.com/adafruit/Adafruit_Sensor
@@ -18,8 +13,8 @@
 #include "DHT.h"
 //#include <Wire.h>
 
-char ssid[] = "LoloNet";       //  your network SSID (name) between the " "
-char pass[] = "LoloPass";      // your network password between the " "
+char ssid[] = "";       //  your network SSID (name) between the " "
+char pass[] = "";      // your network password between the " "
 int keyIndex = 0;                 // your network key Index number (needed only for WEP)
 int status = WL_IDLE_STATUS;      //connection status
 
@@ -27,7 +22,7 @@ int status = WL_IDLE_STATUS;      //connection status
 //IPAddress arduIp(128, 32, 122, 252);
 
 //destination IP !!!
-IPAddress outIp(192, 168, 4, 2);
+IPAddress outIp(192, 168, 4, 2); //IP adress
 
 //ports to listen for and send OSC messages
 unsigned int localPort = 9999;
